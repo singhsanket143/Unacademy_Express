@@ -4,11 +4,12 @@ const router = Router();
 
 router
     .route('/')
-    .get(controllers.getOne)
+    .get(controllers.getAll)
     .post(controllers.createOne);
 
 router 
-    .route('/:id/:num')
+    .route('/:id')
+    .get(controllers.getOne)
     .put((req, res) => {
         console.log(req.params);
         res.send({message: "Router OK PUT"});
