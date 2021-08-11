@@ -1,18 +1,14 @@
 import { Router } from "express";
-
+import controllers from "./post-controller";
 const router = Router();
 
 router
-    .route('/post')
-    .get((req, res) => {
-        res.send({message: "Router OK GET"});
-    })
-    .post((req, res) => {
-        res.send({message: "Router OK POST"});
-    });
+    .route('/')
+    .get(controllers.getOne)
+    .post(controllers.createOne);
 
 router 
-    .route('/post/:id/:num')
+    .route('/:id/:num')
     .put((req, res) => {
         console.log(req.params);
         res.send({message: "Router OK PUT"});
