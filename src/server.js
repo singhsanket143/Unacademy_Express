@@ -1,6 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import { json, urlencoded } from "body-parser";
+import postRouter from "./post/post-router";
+
 
 const app = express();
 const router = express.Router();
@@ -16,7 +18,7 @@ const customLogger = (req, res, next) => {
     next();
 }
 
-app.use('/api/v1',router);
+app.use('/api/post',postRouter);
 
 app.get('/', (req, res) => {
     res.send({message: "OK GET"});
@@ -26,40 +28,6 @@ app.post('/', customLogger, (req, res) => {
     console.log(req.body);
     res.send({message: "OK POST"});
 });
-
-
-// router.get('/post', (req, res) => {
-//     res.send({message: "Router OK"});
-// });
-
-// router.post('/post', (req, res) => {
-//     res.send({message: "OK"});
-// });
-
-
-router
-    .route('/post')
-    .get((req, res) => {
-        res.send({message: "Router OK GET"});
-    })
-    .post((req, res) => {
-        res.send({message: "Router OK POST"});
-    });
-
-router 
-    .route('/post/:id/:num')
-    .put((req, res) => {
-        console.log(req.params);
-        res.send({message: "Router OK PUT"});
-    })
-    .patch((req, res) => {
-        res.send({message: "Router OK PATCH"});
-    })
-    .delete((req, res) => {
-        res.send({message: "Router OK DELETE"});
-    });
-
-
 
 export const start = () => {
     app.listen(3000, () => {
